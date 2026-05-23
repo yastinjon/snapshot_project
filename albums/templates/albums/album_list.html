@@ -2,63 +2,55 @@
 
 {% block content %}
 <div class="space-y-12 w-full">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-b border-gray-800/80 pb-8">
+    
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-b border-black pb-8">
         <div>
-            <h1 class="text-4xl font-extrabold text-white tracking-tight mb-2">My Gallery Dashboard</h1>
-            <p class="text-gray-400 max-w-xl text-sm font-light">Manage and look through the images and files currently uploaded to your cloud storage.</p>
+            <h1 class="text-4xl font-bold uppercase tracking-tight text-black">My Albums</h1>
         </div>
         {% if user.is_authenticated %}
-        <a href="{% url 'album-create' %}" class="bg-[#14B8A6] hover:bg-[#0D9488] text-[#0B0F19] px-6 py-3 rounded-xl font-bold transition flex items-center space-x-2 text-sm">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
-            <span>Add New Album</span>
+        <a href="{% url 'album-create' %}" class="bg-black text-white text-xs font-bold px-6 py-3 uppercase tracking-widest hover:bg-gray-800 transition-colors">
+            + Create New
         </a>
         {% endif %}
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for album in albums %}
-            <div class="group bg-[#111827] rounded-2xl border border-gray-800/80 overflow-hidden shadow-xl hover:border-gray-700 transition-all duration-300 flex flex-col justify-between">
-                <div>
-                    <div class="overflow-hidden bg-[#0B0F19] relative aspect-[16/11]">
-                        {% if album.cover_image %}
-                            <img src="{{ album.cover_image.url }}" class="w-full h-full object-cover opacity-85 group-hover:scale-102 group-hover:opacity-100 transition-all duration-500" alt="{{ album.title }}">
-                        {% else %}
-                            <div class="w-full h-full flex items-center justify-center text-gray-600">
-                                <svg class="w-12 h-12 stroke-current opacity-30" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            </div>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-white mb-2 tracking-tight group-hover:text-[#14B8A6] transition-colors duration-200">{{ album.title }}</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed line-clamp-3 font-light">{{ album.description|default:"No details or descriptions provided for this entry." }}</p>
-                    </div>
+            <div class="flex flex-col border border-black group bg-white">
+                
+                <div class="aspect-[4/3] overflow-hidden bg-gray-100 relative">
+                    {% if album.cover_image %}
+                        <img src="{{ album.cover_image.url }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="{{ album.title }}">
+                    {% else %}
+                        <div class="w-full h-full flex items-center justify-center text-gray-400 text-[10px] uppercase font-bold">
+                            No Image
+                        </div>
+                    {% endif %}
                 </div>
 
-                <div class="px-6 py-4 bg-[#0B0F19]/40 border-t border-gray-800/60 flex justify-between items-center text-xs mt-auto">
-                    <div class="flex items-center space-x-2 text-gray-400">
-                        <div class="w-1.5 h-1.5 rounded-full bg-[#14B8A6]"></div>
-                        <span>By: <strong class="text-gray-300 font-semibold">{{ album.created_by.username }}</strong></span>
-                    </div>
+                <div class="p-8 flex-grow">
+                    <h3 class="text-lg font-bold text-black mb-2 uppercase tracking-tight">{{ album.title }}</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed font-medium">
+                        {{ album.description|default:"No description provided."|truncatechars:100 }}
+                    </p>
+                </div>
+
+                <div class="px-8 pb-8 flex justify-between items-center mt-auto">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                        {{ album.created_by.username }}
+                    </span>
                     
                     {% if request.user == album.created_by or request.user.is_superuser %}
-                        <div class="flex space-x-4 font-bold tracking-wider">
-                            <a href="{% url 'album-edit' album.pk %}" class="text-[#14B8A6] hover:text-[#0D9488] transition">EDIT</a>
-                            <a href="{% url 'album-delete' album.pk %}" class="text-rose-400 hover:text-rose-300 transition">DELETE</a>
+                        <div class="flex space-x-4 font-bold text-[10px] uppercase tracking-widest">
+                            <a href="{% url 'album-edit' album.pk %}" class="text-black hover:text-gray-500">Edit</a>
+                            <a href="{% url 'album-delete' album.pk %}" class="text-black hover:text-red-600">Delete</a>
                         </div>
                     {% endif %}
                 </div>
             </div>
         {% empty %}
-            <div class="col-span-full max-w-md mx-auto text-center py-20 px-6 border-2 border-dashed border-gray-800 rounded-3xl bg-[#111827]/40">
-                <div class="w-16 h-16 bg-[#1F2937] border border-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-6 text-gray-500">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                </div>
-                <h3 class="text-lg font-bold text-gray-200 mb-1">No Albums Found</h3>
-                <p class="text-gray-400 text-sm mb-6 font-light">There are no albums uploaded or registered in this gallery section yet.</p>
-                {% if user.is_authenticated %}
-                <a href="{% url 'album-create' %}" class="inline-flex bg-[#1F2937] border border-gray-800 text-gray-300 text-xs font-bold px-4 py-2.5 rounded-xl hover:bg-gray-700 transition">Create One Now</a>
-                {% endif %}
+            <div class="col-span-full border border-black p-20 text-center">
+                <h3 class="text-xl font-bold uppercase tracking-tight mb-2">No Albums Found</h3>
             </div>
         {% endfor %}
     </div>

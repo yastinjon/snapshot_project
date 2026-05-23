@@ -1,33 +1,35 @@
 {% extends 'albums/base.html' %}
 
 {% block content %}
-<div class="max-w-md mx-auto my-12 w-full">
-    <a href="{% url 'album-list' %}" class="inline-flex items-center space-x-2 text-sm text-gray-400 hover:text-white font-medium transition mb-6 group">
-        <svg class="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-        <span>Cancel</span>
+<div class="max-w-xl mx-auto my-12">
+    <a href="{% url 'album-list' %}" class="inline-flex items-center space-x-2 text-xs text-white hover:text-yellow-400 font-black uppercase tracking-widest transition mb-8 group">
+        <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        <span>Back to Dashboard</span>
     </a>
 
-    <div class="bg-[#111827] border border-gray-800 rounded-2xl shadow-2xl overflow-hidden">
-        <div class="bg-rose-950/40 border-b border-rose-900/50 px-6 py-5 text-rose-400">
-            <h2 class="text-xl font-bold tracking-tight flex items-center space-x-2">
-                <svg class="w-5 h-5 stroke-current" fill="none" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+    <div class="bg-black border-4 border-white overflow-hidden">
+        <div class="bg-red-600 px-8 py-6 border-b-4 border-white">
+            <h2 class="text-3xl font-black tracking-tighter text-white uppercase flex items-center gap-4">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
                 </svg>
-                <span>Delete Album?</span>
+                Delete?
             </h2>
         </div>
 
-        <div class="p-6 space-y-6">
-            <p class="text-gray-300 text-sm leading-relaxed font-light">
-                Are you sure you want to delete <strong class="text-white font-semibold">"{{ object.title }}"</strong>? This will permanently remove it from the database and wipe the image file from cloud storage. This action cannot be undone.
+        <div class="p-8 space-y-8">
+            <p class="text-white text-sm font-bold leading-relaxed">
+                Are you absolutely sure you want to delete <strong class="text-yellow-400">"{{ object.title }}"</strong>? This action is permanent and will wipe the record and assets from the server.
             </p>
 
-            <form method="post" class="flex space-x-4 pt-4 border-t border-gray-800/60">
+            <form method="post" class="flex flex-col sm:flex-row gap-4">
                 {% csrf_token %}
-                <button type="submit" class="w-full bg-rose-600 hover:bg-rose-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition">
-                    Yes, Delete
+                <button type="submit" class="flex-1 bg-red-600 border-4 border-white text-white text-xs font-black px-6 py-4 hover:bg-white hover:text-red-600 transition uppercase">
+                    Yes, Permanently Delete
                 </button>
-                <a href="{% url 'album-list' %}" class="w-full text-center bg-[#1F2937] hover:bg-gray-700 text-gray-200 text-sm font-semibold px-5 py-2.5 rounded-xl transition pt-2.5">
+                <a href="{% url 'album-list' %}" class="flex-1 text-center border-4 border-white text-white text-xs font-black px-6 py-4 hover:bg-white hover:text-black transition uppercase">
                     No, Keep It
                 </a>
             </form>

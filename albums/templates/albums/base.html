@@ -9,94 +9,61 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
-    
-    {% if not user.is_authenticated and request.path != '/accounts/login/' and request.path != '/signup/' %}
-        <script>
-            window.location.href = "{% url 'login' %}";
-        </script>
-    {% endif %}
 </head>
-<body class="bg-[#070A12] text-slate-200 flex h-full overflow-hidden">
+<body class="bg-[#070A12] text-slate-200 min-h-screen flex flex-col md:flex-row">
 
-    <div class="flex w-full h-full">
-        
-        <aside class="w-64 bg-[#0D121F] border-r border-slate-900 flex flex-col justify-between p-6 flex-shrink-0 z-40">
-            <div class="space-y-8">
-                <a href="/" class="flex items-center space-x-3 p-1 group">
-                    <div class="w-9 h-9 bg-gradient-to-tr from-[#0EA5E9] to-[#14B8A6] rounded-lg flex items-center justify-center">
-                        <svg class="w-4 h-4 text-[#070A12]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
-                            <circle cx="12" cy="13" r="3" stroke-width="2.5"></circle>
-                        </svg>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-sm font-bold text-white tracking-wider uppercase">Snapshot</span>
-                        <span class="text-[10px] text-[#14B8A6] font-mono tracking-widest">DARK THEME</span>
-                    </div>
-                </a>
-
-                <div class="pt-2">
-                    {% if user.is_authenticated %}
-                        <div class="bg-[#12192C] border border-slate-800/60 rounded-xl p-4 space-y-3">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-8 h-8 rounded-lg bg-[#14B8A6]/20 border border-[#14B8A6]/40 text-[#14B8A6] flex items-center justify-center text-xs font-bold uppercase">
-                                    {{ user.username|slice:":2" }}
-                                </div>
-                                <div class="flex flex-col min-w-0">
-                                    <span class="text-xs text-slate-400 font-medium">Logged in as:</span>
-                                    <span class="text-sm font-semibold text-slate-100 truncate">{{ user.username }}</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center space-x-2 bg-[#070A12]/60 px-2 py-1.5 rounded-md text-[10px] text-[#14B8A6]">
-                                <span class="w-1.5 h-1.5 rounded-full bg-[#14B8A6] animate-pulse"></span>
-                                <span>Status: Online</span>
-                            </div>
-                        </div>
-                    {% else %}
-                        <div class="bg-[#12192C]/40 border border-dashed border-slate-800 rounded-xl p-4 text-center">
-                            <p class="text-xs text-slate-400 mb-3">Please sign in.</p>
-                            <a href="{% url 'login' %}" class="block w-full text-center bg-[#14B8A6] hover:bg-[#0D9488] text-[#070A12] text-xs font-bold py-2.5 rounded-lg transition">
-                                Login Page
-                            </a>
-                        </div>
-                    {% endif %}
+    <aside class="md:w-64 bg-[#0D121F] border-b md:border-b-0 md:border-r border-slate-900 flex flex-col justify-between p-6 flex-shrink-0 z-40">
+        <div class="space-y-8">
+            <a href="/" class="flex items-center space-x-3 p-1">
+                <div class="w-9 h-9 bg-gradient-to-tr from-[#0EA5E9] to-[#14B8A6] rounded-lg flex items-center justify-center">
+                    <svg class="w-4 h-4 text-[#070A12]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                    </svg>
                 </div>
-            </div>
+                <div class="flex flex-col">
+                    <span class="text-sm font-bold text-white tracking-wider uppercase">Snapshot</span>
+                </div>
+            </a>
 
-            <div class="space-y-4 pt-6 border-t border-slate-900">
+            <div class="hidden md:block">
                 {% if user.is_authenticated %}
-                    <form action="{% url 'logout' %}" method="post" class="block w-full">
-                        {% csrf_token %}
-                        <button type="submit" class="w-full flex items-center justify-center space-x-2 bg-slate-900 hover:bg-rose-950/20 border border-slate-800 hover:border-rose-900/40 text-slate-400 hover:text-rose-400 text-xs font-medium py-2.5 rounded-lg transition-colors duration-200">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-                            <span>Sign Out</span>
-                        </button>
-                    </form>
+                    <div class="bg-[#12192C] border border-slate-800 rounded-xl p-4">
+                        <p class="text-[10px] text-slate-400 uppercase font-bold">Account</p>
+                        <p class="text-sm font-semibold text-slate-100 truncate">{{ user.username }}</p>
+                    </div>
                 {% endif %}
-                
-                <div class="text-[10px] text-slate-500">
-                    <p>&copy; 2026 Snapshot Gallery</p>
-                </div>
             </div>
-        </aside>
-
-        <div class="flex-grow flex flex-col h-full overflow-y-auto bg-[#070A12]">
-            
-            <header class="h-14 border-b border-slate-900 px-8 flex items-center justify-end bg-[#0D121F]/30 backdrop-blur-sm sticky top-0 z-30">
-                <div class="flex items-center space-x-2 text-[11px] text-slate-500">
-                    <span>Server Status:</span>
-                    <span class="text-slate-400 font-medium">Production Live</span>
-                </div>
-            </header>
-
-            <main class="w-full max-w-5xl mx-auto px-8 py-8 flex-grow">
-                {% block content %}
-                {% endblock %}
-            </main>
-
         </div>
-    </div>
+
+        <div class="mt-8 md:mt-0 pt-6 border-t border-slate-900">
+            {% if user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full text-left text-xs text-slate-500 hover:text-rose-400 py-2">
+                        Sign Out
+                    </button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="text-xs text-[#14B8A6]">Login Access</a>
+            {% endif %}
+        </div>
+    </aside>
+
+    <main class="flex-grow flex flex-col min-h-0 overflow-y-auto">
+        <header class="h-14 border-b border-slate-900 px-6 flex items-center justify-between bg-[#0D121F]/50">
+            <span class="text-[10px] font-mono text-slate-600">PRODUCTION_ENV</span>
+            <div class="flex items-center space-x-4">
+                {% if user.is_authenticated %}
+                    <span class="text-xs text-slate-400">Welcome, {{ user.username }}</span>
+                {% endif %}
+            </div>
+        </header>
+
+        <div class="p-6 md:p-12 w-full max-w-5xl mx-auto">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
 
 </body>
 </html>

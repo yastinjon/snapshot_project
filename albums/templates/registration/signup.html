@@ -1,17 +1,17 @@
 {% extends 'albums/base.html' %}
 
 {% block content %}
-<div class="max-w-md mx-auto my-16">
+<div class="max-w-md mx-auto my-12">
     <div class="bg-[#111827] border border-gray-800 rounded-2xl shadow-2xl overflow-hidden">
         
         <div class="bg-[#1F2937]/50 border-b border-gray-800/80 px-8 py-8 text-center">
-            <div class="w-12 h-12 bg-[#14B8A6]/10 border border-[#14B8A6]/30 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-sm">
+            <div class="w-12 h-12 bg-[#14B8A6]/10 border border-[#14B8A6]/30 rounded-xl flex items-center justify-center mx-auto mb-3">
                 <svg class="w-6 h-6 text-[#14B8A6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
                 </svg>
             </div>
-            <h2 class="text-2xl font-bold tracking-tight text-white">Create Workspace Node</h2>
-            <p class="text-gray-400 text-xs font-light mt-1">Configure structural credentials to join this catalog repository.</p>
+            <h2 class="text-2xl font-bold tracking-tight text-white">Create an Account</h2>
+            <p class="text-gray-400 text-xs mt-1">Fill out the fields below to sign up and get started.</p>
         </div>
 
         <form method="post" class="p-8 space-y-6">
@@ -19,14 +19,11 @@
             
             {% if form.errors %}
                 <div class="bg-rose-500/10 border border-rose-500/20 text-rose-400 px-4 py-3 rounded-xl text-xs font-medium space-y-1">
-                    <p class="font-bold uppercase tracking-wider text-[10px]">Registration Interrupted:</p>
+                    <p class="font-bold uppercase tracking-wider text-[10px]">Please correct the following errors:</p>
                     {% for field in form %}
                         {% for error in field.errors %}
                             <p class="list-item list-inside">• {{ field.label }}: {{ error }}</p>
                         {% endfor %}
-                    {% endfor %}
-                    {% for error in form.non_field_errors %}
-                        <p class="list-item list-inside">• {{ error }}</p>
                     {% endfor %}
                 </div>
             {% endif %}
@@ -41,8 +38,8 @@
             </div>
 
             <div class="pt-2">
-                <button type="submit" class="w-full bg-[#14B8A6] hover:bg-[#0D9488] text-[#0B0F19] text-sm font-bold py-3 rounded-xl shadow-lg shadow-[#14B8A6]/5 transition-all duration-150 hover:-translate-y-0.5">
-                    Register Identity
+                <button type="submit" class="w-full bg-[#14B8A6] hover:bg-[#0D9488] text-[#0B0F19] text-sm font-bold py-3 rounded-xl shadow-lg transition duration-150">
+                    Register Account
                 </button>
                 <p class="text-sm text-center text-gray-400 mt-6">
                     Already have an account? <a href="{% url 'login' %}" class="underline text-[#14B8A6] hover:text-[#0D9488] font-medium">Log in here</a>.
@@ -82,12 +79,6 @@
         background-color: #111827;
         border-color: #14B8A6;
         outline: none;
-        box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.1);
-    }
-    .form-custom-styles input[type="checkbox"] {
-        width: auto;
-        display: inline-block;
-        margin-right: 0.5rem;
     }
 </style>
 {% endblock %}

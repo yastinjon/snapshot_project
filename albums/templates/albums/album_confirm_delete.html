@@ -4,7 +4,7 @@
 <div class="max-w-md mx-auto my-12 w-full">
     <a href="{% url 'album-list' %}" class="inline-flex items-center space-x-2 text-sm text-gray-400 hover:text-white font-medium transition mb-6 group">
         <svg class="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-        <span>Cancel Operation</span>
+        <span>Cancel</span>
     </a>
 
     <div class="bg-[#111827] border border-gray-800 rounded-2xl shadow-2xl overflow-hidden">
@@ -13,22 +13,22 @@
                 <svg class="w-5 h-5 stroke-current" fill="none" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
                 </svg>
-                <span>Confirm Object Purge</span>
+                <span>Delete Album?</span>
             </h2>
         </div>
 
         <div class="p-6 space-y-6">
             <p class="text-gray-300 text-sm leading-relaxed font-light">
-                Are you absolutely sure you want to drop <strong class="text-white font-semibold">"{{ object.title }}"</strong>? This execution pathway terminates the instance row and triggers immediate cleanup sweeps across linked remote servers.
+                Are you sure you want to delete <strong class="text-white font-semibold">"{{ object.title }}"</strong>? This will permanently remove it from the database and wipe the image file from cloud storage. This action cannot be undone.
             </p>
 
             <form method="post" class="flex space-x-4 pt-4 border-t border-gray-800/60">
                 {% csrf_token %}
-                <button type="submit" class="w-full bg-rose-600 hover:bg-rose-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-rose-600/10 transition transform active:scale-[0.98]">
-                    Purge Asset
+                <button type="submit" class="w-full bg-rose-600 hover:bg-rose-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition">
+                    Yes, Delete
                 </button>
                 <a href="{% url 'album-list' %}" class="w-full text-center bg-[#1F2937] hover:bg-gray-700 text-gray-200 text-sm font-semibold px-5 py-2.5 rounded-xl transition pt-2.5">
-                    Retain Node
+                    No, Keep It
                 </a>
             </form>
         </div>

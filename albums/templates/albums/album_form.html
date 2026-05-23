@@ -4,15 +4,15 @@
 <div class="max-w-xl mx-auto">
     <a href="{% url 'album-list' %}" class="inline-flex items-center space-x-2 text-sm text-gray-400 hover:text-white font-medium transition mb-6 group">
         <svg class="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-        <span>Back to Studio Index</span>
+        <span>Back to Dashboard</span>
     </a>
 
     <div class="bg-[#111827] border border-gray-800 rounded-2xl shadow-2xl overflow-hidden">
         <div class="bg-[#1F2937]/60 border-b border-gray-800/80 px-8 py-6">
             <h2 class="text-2xl font-bold tracking-tight text-white">
-                {% if object %}Modify Resource Mapping{% else %}Deploy Catalog Node{% endif %}
+                {% if object %}Edit Album Info{% else %}Create New Album{% endif %}
             </h2>
-            <p class="text-gray-400 text-xs font-light mt-1">Specify asset parameters to bind and synchronize with external Cloudinary databases.</p>
+            <p class="text-gray-400 text-xs mt-1">Enter details below to create your item and upload your cover image to Cloudinary storage.</p>
         </div>
 
         <form method="post" enctype="multipart/form-data" class="p-8 space-y-6">
@@ -20,7 +20,7 @@
 
             {% if form.errors %}
                 <div class="bg-rose-500/10 border border-rose-500/20 text-rose-400 px-4 py-3 rounded-xl text-xs font-medium">
-                    Compilation error matrix validated within active form components.
+                    There was a problem checking your form data. Please fix the errors below.
                 </div>
             {% endif %}
 
@@ -30,10 +30,10 @@
 
             <div class="pt-4 border-t border-gray-800/80 flex items-center justify-end space-x-4">
                 <a href="{% url 'album-list' %}" class="bg-[#1F2937] hover:bg-gray-700 text-gray-300 text-sm font-semibold px-5 py-2.5 rounded-xl transition">
-                    Abort
+                    Cancel
                 </a>
-                <button type="submit" class="bg-[#14B8A6] hover:bg-[#0D9488] text-[#0B0F19] text-sm font-bold px-6 py-2.5 rounded-xl shadow-md transition-all duration-150 hover:-translate-y-0.5">
-                    Save Changes
+                <button type="submit" class="bg-[#14B8A6] hover:bg-[#0D9488] text-[#0B0F19] text-sm font-bold px-6 py-2.5 rounded-xl transition">
+                    Save Album
                 </button>
             </div>
         </form>
@@ -70,7 +70,6 @@
         background-color: #111827;
         border-color: #14B8A6;
         outline: none;
-        box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.1);
     }
     .form-custom-styles input[type="file"] {
         font-size: 0.875rem;

@@ -1,43 +1,99 @@
 {% extends 'albums/base.html' %}
 
-{% block title %}Sign In - Snapshot{% endblock %}
-
 {% block content %}
-<div class="w-full max-w-md bg-darkCard border border-slate-800/80 rounded-2xl p-8 shadow-2xl transition-all duration-300 hover:border-slate-700/50">
-    <div class="mb-8">
-        <h2 class="text-2xl font-bold text-white tracking-tight">Welcome back</h2>
-        <p class="text-slate-400 text-sm mt-1">Please enter your details to access your gallery.</p>
+<div class="max-w-md mx-auto my-16 space-y-6">
+    <div class="bg-[#111827] border border-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+        
+        <div class="bg-[#1F2937]/50 border-b border-gray-800/80 px-8 py-8 text-center">
+            <div class="w-12 h-12 bg-[#14B8A6]/10 border border-[#14B8A6]/30 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-sm">
+                <svg class="w-6 h-6 text-[#14B8A6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold tracking-tight text-white">Access Gateway Secure</h2>
+            <p class="text-gray-400 text-xs font-light mt-1">Authenticate workspace parameters to stream node resources.</p>
+        </div>
+
+        <form method="post" class="p-8 space-y-6">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+                <div class="bg-rose-500/10 border border-rose-500/20 text-rose-400 px-4 py-3 rounded-xl text-xs font-medium">
+                    Credentials invalid. Verification failed on security token sequence.
+                </div>
+            {% endif %}
+
+            <div class="space-y-5 form-custom-styles">
+                {{ form.as_p }}
+            </div>
+
+            <div class="pt-2">
+                <button type="submit" class="w-full bg-[#14B8A6] hover:bg-[#0D9488] text-[#0B0F19] text-sm font-bold py-3 rounded-xl shadow-lg shadow-[#14B8A6]/5 transition-all duration-150 hover:-translate-y-0.5">
+                    Authorize Entry
+                </button>
+                <p class="text-sm text-center text-gray-400 mt-6">
+                    Don't have an account? <a href="{% url 'signup' %}" class="underline text-[#14B8A6] hover:text-[#0D9488] font-medium">Create one here</a>.
+                </p>
+            </div>
+        </form>
     </div>
 
-    <form method="POST" class="space-y-5">
-        {% csrf_token %}
-        
-        <div>
-            <label for="username" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Username</label>
-            <input type="text" name="username" id="username" required
-                class="w-full bg-darkBg border border-slate-700 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-accentBlue focus:ring-1 focus:ring-accentBlue transition text-sm">
-        </div>
-
-        <div>
-            <div class="flex justify-between items-center mb-2">
-                <label for="password" class="block text-xs font-semibold uppercase tracking-wider text-slate-400">Password</label>
-                <a href="#" class="text-xs text-accentBlue hover:underline transition">Forgot password?</a>
+    <div class="bg-[#111827] border border-gray-800 rounded-2xl p-6 text-sm text-gray-400 space-y-4 shadow-xl">
+        <div class="space-y-3 pt-1 text-xs">
+            <div class="bg-[#0B0F19] p-3 rounded-xl border border-gray-800 shadow-inner">
+                <span class="block font-semibold text-gray-200 mb-1">👤 1. Standard Testing Framework</span>
+                <p class="text-gray-500 leading-relaxed">
+                    Select <a href="{% url 'signup' %}" class="underline text-[#14B8A6] font-semibold hover:text-[#0D9488]">Create one here</a> above to initialize a clean profile parameters set.
+                </p>
             </div>
-            <input type="password" name="password" id="password" required
-                class="w-full bg-darkBg border border-slate-700 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-accentBlue focus:ring-1 focus:ring-accentBlue transition text-sm">
+            <div class="bg-[#0B0F19] p-3 rounded-xl border border-gray-800 shadow-inner">
+                <span class="block font-semibold text-gray-200 mb-1">👑 2. Administrative Control Access</span>
+                <div class="space-y-0.5 font-mono text-[11px] bg-[#111827] p-2 rounded border border-gray-800 text-[#14B8A6] mt-1">
+                    <div><strong class="text-gray-400 font-sans">Username:</strong> admin_user</div>
+                    <div><strong class="text-gray-400 font-sans">Password:</strong> @dm1n_panel</div>
+                </div>
+                <span class="text-[10px] text-gray-500 block mt-1.5 leading-normal">
+                    (Provides global audit visibility and structural backend configuration control directly at <a href="/admin" class="underline text-[#14B8A6]">/admin</a>)
+                </span>
+            </div>
         </div>
-
-        <button type="submit" 
-            class="w-full bg-accentBlue text-darkBg font-semibold text-sm py-3 rounded-xl hover:opacity-95 transform active:scale-[0.98] transition shadow-lg shadow-accentBlue/10 mt-2">
-            Sign In
-        </button>
-    </form>
-
-    <div class="mt-8 pt-6 border-t border-slate-800 text-center">
-        <p class="text-sm text-slate-400">
-            Don't have an account? 
-            <a href="{% url 'signup' %}" class="text-accentBlue font-medium hover:underline transition">Create one</a>
-        </p>
     </div>
 </div>
+
+<style>
+    .form-custom-styles p {
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+        margin-bottom: 1.25rem;
+    }
+    .form-custom-styles label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #9CA3AF;
+    }
+    .form-custom-styles input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+        background-color: #0B0F19;
+        border: 1px solid #1F2937;
+        border-radius: 0.75rem;
+        color: #F9FAFB;
+        transition: all 0.2s;
+    }
+    .form-custom-styles input:focus {
+        background-color: #111827;
+        border-color: #14B8A6;
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.1);
+    }
+    .form-custom-styles input[type="checkbox"] {
+        width: auto;
+        display: inline-block;
+        margin-right: 0.5rem;
+    }
+</style>
 {% endblock %}
